@@ -2,12 +2,12 @@ import logging
 import os
 from starlette.applications import Starlette
 from starlette.routing import Route, Mount
-from starlette.responses import PlainTextResponse
 import uvicorn
 
 from config import Config
 from constants import LOG_DIR, CONFIG_FILE_PATH
 from storage.db import PostgresStorage
+from handlers.user_handler import UserHandler
 
 # Config init
 config = Config(yaml_file=CONFIG_FILE_PATH)
@@ -35,14 +35,18 @@ db = PostgresStorage(
     password=config.DBPASSWORD
 )
 
-# Init app
+# Event on app startup
 async def startup():
     await db.connect()
 
+# Routes
 routes = [
-    Mount('/', routes=[])
+    Mount('/users', routes=[
+        Route('/', UserHandler),
+    ])
 ]
 
+# Init app
 app = Starlette(debug=config.DEBUG, routes=routes, on_startup=[startup])
 
 if __name__ == '__main__':

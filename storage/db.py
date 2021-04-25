@@ -1,5 +1,7 @@
-from storage.storage import Storage
 from databases import Database
+
+from storage.storage import Storage
+
 
 class PostgresStorage(Storage):
     __slots__ = [
@@ -22,17 +24,22 @@ class PostgresStorage(Storage):
         self._database = Database(url=self.url)
         await self._database.connect()
 
-    async def find_one(self, *args, **kwargs):
-        pass
+    async def find_one(self, command: str):
+        res = await self._database.fetch_one(command)
+        return res
 
-    async def find(self, *args, **kwargs):
-        pass
+    async def find(self, command: str):
+        res = await self._database.fetch_all(command)
+        return res
 
-    async def create(self, *args, **kwargs):
-        pass
+    async def create(self, command: str):
+        res = await self._database.execute(command)
+        return res
 
-    async def update(self, *args, **kwargs):
-        pass
+    async def put(self, command: str):
+        res = await self._database.execute(command)
+        return res
 
-    async def delete(self, *args, **kwargs):
-        pass
+    async def delete(self, command: str):
+        res = await self._database.execute(command)
+        return res
