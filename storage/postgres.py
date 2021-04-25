@@ -4,6 +4,7 @@ from storage.storage import Storage
 
 
 class PostgresStorage(Storage):
+
     __slots__ = [
         'url',
         '_database'
@@ -36,7 +37,7 @@ class PostgresStorage(Storage):
         res = await self._database.execute(command)
         return res
 
-    async def put(self, command: str):
+    async def update(self, command: str):
         res = await self._database.execute(command)
         return res
 

@@ -6,7 +6,7 @@ import uvicorn
 
 from config import Config
 from constants import LOG_DIR, CONFIG_FILE_PATH
-from storage.db import PostgresStorage
+from storage.postgres import PostgresStorage
 from handlers.user_handler import UserHandler
 
 # Config init
@@ -27,7 +27,7 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 # Init database
-db = PostgresStorage(
+storage = PostgresStorage(
     host=config.DBHOST,
     port=config.DBPORT,
     dbname=config.DBNAME,
@@ -37,12 +37,12 @@ db = PostgresStorage(
 
 # Event on app startup
 async def startup():
-    await db.connect()
+    await storage.connect()
 
 # Routes
 routes = [
     Mount('/users', routes=[
-        Route('/', UserHandler),
+        Route('/', endpoint=UserHandler),
     ])
 ]
 

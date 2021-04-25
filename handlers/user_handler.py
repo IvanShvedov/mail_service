@@ -3,6 +3,10 @@ from starlette.endpoints import HTTPEndpoint
 
 class UserHandler(HTTPEndpoint):
 
+
+    def __init__(self, service):
+        self.service = service
+
     async def get(self, request):
         pass
 
