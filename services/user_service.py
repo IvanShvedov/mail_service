@@ -1,6 +1,5 @@
 from storage.storage import Storage
 
-
 class UserService:
     __slots__ = ['storage']
 

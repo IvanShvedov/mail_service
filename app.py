@@ -36,7 +36,7 @@ storage = PostgresStorage(
     password=config.DBPASSWORD
 )
 
-# UserService init
+# Services init
 user_service = UserService(storage=storage)
 
 # Event on app startup
@@ -49,7 +49,6 @@ routes = [
         Route('/', endpoint=UserHandler),
     ])
 ]
-
 
 # Init app
 app = Starlette(debug=config.DEBUG, routes=routes, on_startup=[startup])

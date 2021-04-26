@@ -4,10 +4,10 @@ from services.service import Service
 
 class UserHandler(HTTPEndpoint):
 
-    def __init__(self, *args, **kwargs):
-        # self.service = 
-        print(args)
-        super().__init__(*args, **kwargs)
+    __slots__ = ['service']
+
+    def __init__(self, *args):
+        super().__init__(*args)
 
     async def get(self, request):
         self.service.create()
