@@ -4,5 +4,9 @@ from abc import abstractmethod, ABC
 class Service(ABC):
     
     @abstractmethod
-    async def create(self):
+    async def create(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    async def get(self, *args, **kwargs):
         pass

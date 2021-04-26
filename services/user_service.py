@@ -7,5 +7,8 @@ class UserService:
     def __init__(self, storage: Storage):
         self.storage = storage
 
-    async def create_user(self):
+    async def create(self):
+        print('a')
+
+    async def get(self):
         pass

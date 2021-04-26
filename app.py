@@ -8,6 +8,7 @@ from config import Config
 from constants import LOG_DIR, CONFIG_FILE_PATH
 from storage.postgres import PostgresStorage
 from handlers.user_handler import UserHandler
+from services.user_service import UserService
 
 # Config init
 config = Config(yaml_file=CONFIG_FILE_PATH)
@@ -35,6 +36,9 @@ storage = PostgresStorage(
     password=config.DBPASSWORD
 )
 
+# UserService init
+user_service = UserService(storage=storage)
+
 # Event on app startup
 async def startup():
     await storage.connect()
@@ -45,6 +49,7 @@ routes = [
         Route('/', endpoint=UserHandler),
     ])
 ]
+
 
 # Init app
 app = Starlette(debug=config.DEBUG, routes=routes, on_startup=[startup])

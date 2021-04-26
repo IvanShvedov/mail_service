@@ -1,14 +1,16 @@
 from starlette.endpoints import HTTPEndpoint
 
+from services.service import Service
 
 class UserHandler(HTTPEndpoint):
 
-
-    def __init__(self, service):
-        self.service = service
+    def __init__(self, *args, **kwargs):
+        # self.service = 
+        print(args)
+        super().__init__(*args, **kwargs)
 
     async def get(self, request):
-        pass
+        self.service.create()
 
     async def post(self, request):
         pass
