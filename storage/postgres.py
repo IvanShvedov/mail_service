@@ -7,7 +7,7 @@ class PostgresStorage(Storage):
 
     __slots__ = [
         'url',
-        '_database'
+        '_database',
         ]
 
     def __init__(
