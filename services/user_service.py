@@ -9,7 +9,8 @@ class UserService:
         return cls._instance
 
     async def create(self):
-        print('a')
+        sql = f'INSERT INTO users VALUES (1,2)'
+        await self.storage.create(command=sql)
 
     async def get(self):
         pass

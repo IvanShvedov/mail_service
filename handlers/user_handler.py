@@ -1,4 +1,6 @@
 from starlette.endpoints import HTTPEndpoint
+from starlette.responses import Response, JSONResponse
+
 from services.user_service import UserService
 
 
@@ -10,6 +12,7 @@ class UserHandler(HTTPEndpoint):
 
     async def get(self, request):
         await self.service.create()
+        return JSONResponse(content={"msg":"hi"})
 
     async def post(self, request):
         pass

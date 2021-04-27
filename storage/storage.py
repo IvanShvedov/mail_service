@@ -3,8 +3,6 @@ from abc import ABC, abstractmethod
 
 class Storage(ABC):
 
-    __slots__ = []
-
     @abstractmethod
     async def find_one(self, *args, **kwargs):
         pass
