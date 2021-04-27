@@ -16,6 +16,7 @@ class UserHandler(HTTPEndpoint):
         return JSONResponse(content={"user": user})
 
     async def post(self, request):
+        
         await self.service.create(
             UserDTC(
                 email="test",

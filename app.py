@@ -36,10 +36,10 @@ storage = PostgresStorage(
     password=config.DBPASSWORD
 )
 
-# Services init
+# Init services
 user_service = UserService(storage=storage)
 
-# Event on app startup
+# Startup app event
 async def startup():
     await storage.connect()
 
