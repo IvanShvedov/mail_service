@@ -1,5 +1,4 @@
 from abc import abstractmethod, ABC
-from storage.storage import Storage
 
 
 class Service(ABC):
@@ -9,11 +8,11 @@ class Service(ABC):
         pass
 
     @abstractmethod
-    async def get(self, *args, **kwargs):
+    async def find(self, *args, **kwargs):
         pass
 
     @abstractmethod
-    async def get_one(self, *args, **kwargs):
+    async def find_one(self, *args, **kwargs):
         pass
 
     @abstractmethod

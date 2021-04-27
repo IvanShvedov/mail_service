@@ -1,8 +1,9 @@
 from starlette.endpoints import HTTPEndpoint
-from starlette.responses import Response, JSONResponse
+from starlette.responses import JSONResponse
+from starlette import status
 
 from services.user_service import UserService
-
+from models.user import UserDTC
 
 class UserHandler(HTTPEndpoint):
 
@@ -11,11 +12,18 @@ class UserHandler(HTTPEndpoint):
         super().__init__(*args)
 
     async def get(self, request):
-        await self.service.create()
-        return JSONResponse(content={"msg":"hi"})
+        user = await self.service.find_one()
+        return JSONResponse(content={"user": user})
 
     async def post(self, request):
-        pass
+        await self.service.create(
+            UserDTC(
+                email="test",
+                password="testpass"
+            )
+        )
+        return JSONResponse(content={"msg": "ok"}, status_code=status.HTTP_201_CREATED)
+        
 
     async def put(self, request):
         pass

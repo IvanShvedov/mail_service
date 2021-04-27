@@ -47,6 +47,7 @@ async def startup():
 routes = [
     Mount('/users', routes=[
         Route('/', endpoint=UserHandler),
+        Route('/{id}', endpoint=UserHandler)
     ])
 ]
 

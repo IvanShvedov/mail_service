@@ -1,4 +1,7 @@
+from typing import Union
+
 from storage.storage import Storage
+from models.user import UserDTC
 
 class UserService:
 
@@ -8,9 +11,21 @@ class UserService:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    async def create(self):
-        sql = f'INSERT INTO users VALUES (1,2)'
-        await self.storage.create(command=sql)
+    async def create(self, user: UserDTC):
+        await self.storage.create(
+            f"""
+            INSERT INTO users (email, password) VALUES (
+            '{user.email}',
+            '{user.password}'
+            )
+            """
+        )
 
-    async def get(self):
+    async def find_one(self, id: Union[int, str]):
+        pass
+
+    async def _parse_users(self, users):
+        pass
+
+    async def _get_password_hash(self, password: str):
         pass
