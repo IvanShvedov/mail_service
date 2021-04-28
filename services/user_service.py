@@ -11,7 +11,8 @@ class UserService:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    async def create(self, user: UserDTC):
+    async def create(self, body):
+        user = await self._parse_body(body)
         await self.storage.create(
             f"""
             INSERT INTO users (email, password) VALUES (
@@ -24,8 +25,12 @@ class UserService:
     async def find_one(self, id: Union[int, str]):
         pass
 
-    async def _parse_users(self, users):
-        pass
+    async def _parse_body(self, body) -> UserDTC:
+        user = UserDTC()
+        print(body)
+        for k, v in body.items():
+            setattr(user, k, v)
+        return user
 
     async def _get_password_hash(self, password: str):
         pass

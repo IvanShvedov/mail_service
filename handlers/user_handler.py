@@ -3,7 +3,6 @@ from starlette.responses import JSONResponse
 from starlette import status
 
 from services.user_service import UserService
-from models.user import UserDTC
 
 class UserHandler(HTTPEndpoint):
 
@@ -16,13 +15,8 @@ class UserHandler(HTTPEndpoint):
         return JSONResponse(content={"user": user})
 
     async def post(self, request):
-        
-        await self.service.create(
-            UserDTC(
-                email="test",
-                password="testpass"
-            )
-        )
+        body = await request.json()
+        await self.service.create(body)
         return JSONResponse(content={"msg": "ok"}, status_code=status.HTTP_201_CREATED)
         
 
