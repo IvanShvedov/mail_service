@@ -2,6 +2,8 @@ import logging
 import os
 from starlette.applications import Starlette
 from starlette.routing import Route, Mount
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
 from config import Config
@@ -50,8 +52,18 @@ routes = [
     ])
 ]
 
+# Middleware
+middleware = [
+    Middleware(CORSMiddleware, allow_origins=['*'])
+]
+
 # Init app
-app = Starlette(debug=config.DEBUG, routes=routes, on_startup=[startup])
+app = Starlette(
+    debug=config.DEBUG,
+    routes=routes,
+    middleware=middleware,
+    on_startup=[startup]
+    )
 
 if __name__ == '__main__':
     uvicorn.run(app=app, host=config.HOST, port=config.PORT)
