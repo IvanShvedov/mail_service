@@ -22,8 +22,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "example@gmail.com",
-    "password": "test123"
+    "email": "example13@gmail.com",
+    "password": "updatetest"
 }
 
 # Delete user

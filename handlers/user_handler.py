@@ -26,4 +26,5 @@ class UserHandler(HTTPEndpoint):
         return JSONResponse(content={"message": "user was successful updated"}, status_code=status.HTTP_200_OK)
 
     async def delete(self, request):
-        pass
+        await self.service.delete(id=1)
+        return JSONResponse(content={"message": "user was successful deleted"}, status_code=status.HTTP_200_OK)

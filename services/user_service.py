@@ -35,8 +35,13 @@ class UserService:
             """
         )
 
-    async def delete(self):
-        pass
+    async def delete(self, id: int):
+        await self.storage.delete(
+            f"""
+            DELETE FROM users
+            WHERE id={id}
+            """
+        )
 
     async def _parse_body(self, body) -> UserDTC:
         user = UserDTC()
