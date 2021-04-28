@@ -12,7 +12,7 @@ class UserHandler(HTTPEndpoint):
         super().__init__(*args)
 
     async def get(self, request):
-        user = await self.service.find_one()
+        user = await self.service.find_one(id=11)
         return JSONResponse(content={"user": user})
 
     async def post(self, request):

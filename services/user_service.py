@@ -12,7 +12,14 @@ class UserService:
         return cls._instance
 
     async def find_one(self, id: Union[int, str]):
-        pass
+        res = await self.storage.find_one(
+            f"""
+            SELECT * FROM users
+            WHERE users.id={id}
+            """
+        )
+        user = await self._parse_body(res)
+        return user.to_dict()
 
     async def create(self, body: Dict[str, Any]):
         user = await self._parse_body(body)
@@ -39,7 +46,7 @@ class UserService:
         await self.storage.delete(
             f"""
             DELETE FROM users
-            WHERE id={id}
+            WHERE users.id={id}
             """
         )
 
