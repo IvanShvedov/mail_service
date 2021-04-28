@@ -4,6 +4,7 @@ from starlette import status
 
 from services.user_service import UserService
 
+# @TODO: jwt auth, get user_id from jwt
 class UserHandler(HTTPEndpoint):
 
     def __init__(self, *args):
@@ -17,11 +18,12 @@ class UserHandler(HTTPEndpoint):
     async def post(self, request):
         body = await request.json()
         await self.service.create(body)
-        return JSONResponse(content={"msg": "ok"}, status_code=status.HTTP_201_CREATED)
+        return JSONResponse(content={"message": "new user was successful created"}, status_code=status.HTTP_201_CREATED)
         
-
     async def put(self, request):
-        pass
+        body = await request.json()
+        await self.service.update(body=body, id=1)
+        return JSONResponse(content={"message": "user was successful updated"}, status_code=status.HTTP_200_OK)
 
     async def delete(self, request):
         pass

@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Any, Union, Dict
 
 from storage.storage import Storage
 from models.user import UserDTC
@@ -11,7 +11,10 @@ class UserService:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    async def create(self, body):
+    async def find_one(self, id: Union[int, str]):
+        pass
+
+    async def create(self, body: Dict[str, Any]):
         user = await self._parse_body(body)
         await self.storage.create(
             f"""
@@ -22,12 +25,21 @@ class UserService:
             """
         )
 
-    async def find_one(self, id: Union[int, str]):
+    async def update(self, body: Dict[str, Any], id: int):
+        user = await self._parse_body(body)
+        await self.storage.update(
+            f"""
+            UPDATE users
+            SET email='{user.email}', password='{user.password}'
+            WHERE users.id = {id}
+            """
+        )
+
+    async def delete(self):
         pass
 
     async def _parse_body(self, body) -> UserDTC:
         user = UserDTC()
-        print(body)
         for k, v in body.items():
             setattr(user, k, v)
         return user
